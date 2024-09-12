@@ -1,17 +1,14 @@
 import React from "react";
-import { GetServerSideProps } from "next";
+import { GetServerSideProps, GetStaticProps } from "next";
 import Image from "next/image";
 import { HomeContainer, ProductItem } from "@/styles/pages/home";
 
 import { useKeenSlider } from "keen-slider/react";
 
-import guitar1 from "@/assets/guitars/1.png";
-import guitar2 from "@/assets/guitars/2.png";
-import guitar3 from "@/assets/guitars/3.png";
-
 import "keen-slider/keen-slider.min.css";
 import { stripe } from "@/lib/stripe";
 import Stripe from "stripe";
+import Link from "next/link";
 
 // import { Container } from './styles';
 
@@ -35,27 +32,29 @@ const Home: React.FC = ({ products }: HomeProps) => {
 
   return (
     <HomeContainer ref={sliderRef} className="keen-slider">
-      {products.map((i) => (
-        <ProductItem key={i.id} className="keen-slider__slide">
-          <Image
-            src={i.imageUrl}
-            height={550}
-            width={250}
-            style={{ objectFit: "contain" }}
-            alt=""
-          />
-          <footer>
-            <strong>{i.name}</strong>
-            <span>R$ {i.price}</span>
-          </footer>
-        </ProductItem>
+      {products?.map((product) => (
+        <Link key={product.id} href={`/product/${product.id}`}>
+          <ProductItem className="keen-slider__slide">
+            <Image
+              src={product.imageUrl}
+              height={550}
+              width={250}
+              style={{ objectFit: "contain" }}
+              alt=""
+            />
+            <footer>
+              <strong>{product.name}</strong>
+              <span>{product.price}</span>
+            </footer>
+          </ProductItem>
+        </Link>
       ))}
     </HomeContainer>
   );
 };
 export default Home;
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const response = await stripe.products.list({
     expand: ["data.default_price"],
   });
@@ -68,10 +67,17 @@ export const getServerSideProps: GetServerSideProps = async () => {
       name: product.name,
       imageUrl: product.images[0],
       url: product.url,
-      price: price.unit_amount / 100,
+      price: new Intl.NumberFormat("pt-br", {
+        style: "currency",
+        currency: "BRL",
+      }).format(price.unit_amount / 100),
     };
   });
+
+  let oneHour = 60 * 60;
+
   return {
     props: { products },
+    revalidate: 2 * oneHour,
   };
 };

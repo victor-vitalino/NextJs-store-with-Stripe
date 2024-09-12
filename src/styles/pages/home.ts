@@ -20,6 +20,7 @@ export const ProductItem = styled("a", {
   alignItems: "center",
   justifyContent: "center",
   width: 520,
+  color:'$gray100',
 
   img: {
     objectFit: "cover",
