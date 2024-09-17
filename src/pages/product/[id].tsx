@@ -51,11 +51,11 @@ const ProductItemDetail = ({ product }: ProductProps) => {
   return (
     <ProductContainer>
       <ImageContainer>
-        <Image src={product?.imageUrl} alt="" />
+        <Image src={product?.imageUrl} alt="" priority width={226} height={656} objectFit="cover"/>
       </ImageContainer>
       <PoductDetails>
-        <h1>Guitarra B</h1>
-        <span>R$ 59.99</span>
+        <h1>{product.name}</h1>
+        <span>{product.price}</span>
         <p>{product?.description}</p>
         <button disabled={creatingCheckout} onClick={handleBuyProduct}>
           Comprar agora
@@ -66,7 +66,6 @@ const ProductItemDetail = ({ product }: ProductProps) => {
 };
 
 export default ProductItemDetail;
-
 
 export const getStaticPaths: GetStaticPaths = async () => {
   /**
@@ -90,6 +89,8 @@ export const getStaticProps: GetStaticProps<any, { id: string }> = async ({
   const product = await stripe.products.retrieve(productId, {
     expand: ["default_price"],
   });
+
+  console.log("product", product);
 
   const price = product.default_price as Stripe.Price;
 
