@@ -4,10 +4,11 @@ import {
   PoductDetails,
   ProductContainer,
 } from "@/styles/pages/product";
-import { styled } from "@stitches/react";
-import { GetServerSideProps, GetStaticPaths, GetStaticProps } from "next";
+import axios from "axios";
+import { GetStaticPaths, GetStaticProps } from "next";
+import Image from "next/image";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useState } from "react";
 import Stripe from "stripe";
 
 // import { Container } from './styles';
@@ -20,26 +21,45 @@ interface ProductProps {
     url: string;
     price: string;
     description: string;
+    defaultPriceId: string;
   };
 }
 
 const ProductItemDetail = ({ product }: ProductProps) => {
+  const [creatingCheckout, setCreatingCheckout] = useState(false);
   const { isFallback } = useRouter();
 
   if (isFallback) {
     return <p>Loading...</p>;
   }
 
+  const handleBuyProduct = async () => {
+    try {
+      setCreatingCheckout(true);
+      const response = await axios.post(`/api/checkout`, {
+        priceId: product.defaultPriceId,
+      });
+
+      const { checkoutUrl } = response.data;
+      window.location.href = checkoutUrl;
+    } catch (error) {
+      setCreatingCheckout(false);
+      alert("Falha ao ir para checkout");
+    }
+  };
+
   return (
     <ProductContainer>
       <ImageContainer>
-        <img src={product?.imageUrl} alt="" />
+        <Image src={product?.imageUrl} alt="" />
       </ImageContainer>
       <PoductDetails>
         <h1>Guitarra B</h1>
         <span>R$ 59.99</span>
         <p>{product?.description}</p>
-        <button>Comprar agora</button>
+        <button disabled={creatingCheckout} onClick={handleBuyProduct}>
+          Comprar agora
+        </button>
       </PoductDetails>
     </ProductContainer>
   );
@@ -47,7 +67,6 @@ const ProductItemDetail = ({ product }: ProductProps) => {
 
 export default ProductItemDetail;
 
-const ONE_HOUR = 60 * 60;
 
 export const getStaticPaths: GetStaticPaths = async () => {
   /**
@@ -57,15 +76,16 @@ export const getStaticPaths: GetStaticPaths = async () => {
    */
 
   return {
-    paths: [{ params: { id: "" } }],
+    paths: [],
     fallback: true,
   };
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const getStaticProps: GetStaticProps<any, { id: string }> = async ({
   params,
 }) => {
-  let productId = params.id;
+  const productId = params!.id;
 
   const product = await stripe.products.retrieve(productId, {
     expand: ["default_price"],
@@ -81,12 +101,12 @@ export const getStaticProps: GetStaticProps<any, { id: string }> = async ({
         description: product.description,
         imageUrl: product.images[0],
         url: product.url,
+        defaultPriceId: price.id,
         price: new Intl.NumberFormat("pt-br", {
           style: "currency",
           currency: "BRL",
-        }).format(price.unit_amount / 100),
+        }).format(price.unit_amount! / 100),
       },
     },
-    revalidate: ONE_HOUR * 1,
   };
 };

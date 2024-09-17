@@ -1,5 +1,5 @@
 import React from "react";
-import { GetServerSideProps, GetStaticProps } from "next";
+import { GetStaticProps } from "next";
 import Image from "next/image";
 import { HomeContainer, ProductItem } from "@/styles/pages/home";
 
@@ -22,7 +22,7 @@ interface HomeProps {
   }[];
 }
 
-const Home: React.FC = ({ products }: HomeProps) => {
+const Home = ({ products }: HomeProps) => {
   const [sliderRef] = useKeenSlider({
     slides: {
       perView: 3,
@@ -70,14 +70,14 @@ export const getStaticProps: GetStaticProps = async () => {
       price: new Intl.NumberFormat("pt-br", {
         style: "currency",
         currency: "BRL",
-      }).format(price.unit_amount / 100),
+      }).format(price.unit_amount! / 100),
     };
   });
 
-  let oneHour = 60 * 60;
+  const oneHour = 60 * 60;
 
   return {
     props: { products },
-    revalidate: 2 * oneHour,
+    revalidate: oneHour * 2,
   };
 };

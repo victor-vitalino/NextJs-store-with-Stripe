@@ -1,4 +1,3 @@
-import { relative } from "path";
 import { styled } from "..";
 
 export const HomeContainer = styled("main", {
