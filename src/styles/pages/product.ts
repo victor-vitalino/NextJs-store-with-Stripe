@@ -3,16 +3,16 @@ import { styled } from "..";
 export const ProductContainer = styled("main", {
   display: "grid",
   gridTemplateColumns: "1fr 1fr",
-  alignItems: "stretch",
-  gap: "4rem",
+  alignItems: "unset",
+  gap: "1rem",
 
   maxWidth: "1180",
-  margin: "0 auto",
+  margin: '0 10rem',
 });
 export const ImageContainer = styled("div", {
   width: "100%",
   maxWidth: 576,
-  minHeight: 656,
+  height: 656,
 
   background: "linear-gradient(100deg, #1ea483 0%, #7465d4 100%)",
   borderRadius: 8,
@@ -24,6 +24,7 @@ export const ImageContainer = styled("div", {
 
   img: {
     objectFit: "cover",
+    height: 656,
   },
 });
 export const PoductDetails = styled("div", {
