@@ -6,6 +6,7 @@ import {
 } from "@/styles/pages/product";
 import axios from "axios";
 import { GetStaticPaths, GetStaticProps } from "next";
+import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
@@ -49,19 +50,31 @@ const ProductItemDetail = ({ product }: ProductProps) => {
   };
 
   return (
-    <ProductContainer>
-      <ImageContainer>
-        <Image src={product?.imageUrl} alt="" priority width={226} height={656} objectFit="cover"/>
-      </ImageContainer>
-      <PoductDetails>
-        <h1>{product.name}</h1>
-        <span>{product.price}</span>
-        <p>{product?.description}</p>
-        <button disabled={creatingCheckout} onClick={handleBuyProduct}>
-          Comprar agora
-        </button>
-      </PoductDetails>
-    </ProductContainer>
+    <>
+      <Head>
+        <title>{product.name} | Guitar Shop</title>
+      </Head>
+      <ProductContainer>
+        <ImageContainer>
+          <Image
+            src={product?.imageUrl}
+            alt=""
+            priority
+            width={226}
+            height={656}
+            objectFit="cover"
+          />
+        </ImageContainer>
+        <PoductDetails>
+          <h1>{product.name}</h1>
+          <span>{product.price}</span>
+          <p>{product?.description}</p>
+          <button disabled={creatingCheckout} onClick={handleBuyProduct}>
+            Comprar agora
+          </button>
+        </PoductDetails>
+      </ProductContainer>
+    </>
   );
 };
 

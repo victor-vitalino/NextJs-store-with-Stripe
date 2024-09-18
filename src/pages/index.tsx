@@ -9,6 +9,7 @@ import "keen-slider/keen-slider.min.css";
 import { stripe } from "@/lib/stripe";
 import Stripe from "stripe";
 import Link from "next/link";
+import Head from "next/head";
 
 // import { Container } from './styles';
 
@@ -31,25 +32,34 @@ const Home = ({ products }: HomeProps) => {
   });
 
   return (
-    <HomeContainer ref={sliderRef} className="keen-slider">
-      {products?.map((product) => (
-        <Link key={product.id} href={`/product/${product.id}`} prefetch={false}>
-          <ProductItem className="keen-slider__slide">
-            <Image
-              src={product.imageUrl}
-              height={550}
-              width={250}
-              style={{ objectFit: "contain" }}
-              alt=""
-            />
-            <footer>
-              <strong>{product.name}</strong>
-              <span>{product.price}</span>
-            </footer>
-          </ProductItem>
-        </Link>
-      ))}
-    </HomeContainer>
+    <>
+      <Head>
+        <title>Guitar Shop</title>
+      </Head>
+      <HomeContainer ref={sliderRef} className="keen-slider">
+        {products?.map((product) => (
+          <Link
+            key={product.id}
+            href={`/product/${product.id}`}
+            prefetch={false}
+          >
+            <ProductItem className="keen-slider__slide">
+              <Image
+                src={product.imageUrl}
+                height={550}
+                width={250}
+                style={{ objectFit: "contain" }}
+                alt=""
+              />
+              <footer>
+                <strong>{product.name}</strong>
+                <span>{product.price}</span>
+              </footer>
+            </ProductItem>
+          </Link>
+        ))}
+      </HomeContainer>
+    </>
   );
 };
 export default Home;
