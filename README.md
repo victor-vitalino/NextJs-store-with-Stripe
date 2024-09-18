@@ -7,6 +7,7 @@ Repositório de uma loja de guitarras desenvolvida com Next.js. Esta aplicação
 - **Next.js**: Framework React para SSR, SSG e SPA.
 - **Stripe**: Plataforma de pagamentos para aceitar e processar pagamentos online.
 - **Axios**: Biblioteca para requisições HTTP.
+- **Stitches**: Biblioteca de estilização CSS-in-js.
 - **API Routes do Next.js**: Para comunicação backend e integração com o Stripe.
 
 ## Funcionalidades
@@ -25,27 +26,30 @@ Repositório de uma loja de guitarras desenvolvida com Next.js. Esta aplicação
 - Node.js >= v20.11.1
 - Conta Stripe
 - Chave de API do Stripe
+- Cadastrar os produtos no stripe (imagem, nome, descrição e preço)
 
 ### Passos
 
 1. Clone o repositório:
 
    ```bash
-   git clone https://github.com/seu-usuario/seu-repositorio.git
-   cd seu-repositorio
+      git clone https://github.com/seu-usuario/seu-repositorio.git
+      cd seu-repositorio
 
    ```
 
 2. Instale as dependencias
 
    ```bash
-   yarn install ou  npm install
+      yarn install
+      # ou
+      npm install
    ```
 
 3. Crie um arquivo .env na raiz do projeto e adicione suas chaves de API do Stripe:
    ```bash
-   STRIPE_SECRET_KEY=sk_test*...
-   STRIPE_PUBLIC_KEY=pk_test*...
+      STRIPE_SECRET_KEY=sk_test*...
+      STRIPE_PUBLIC_KEY=pk_test*...
    ```
 4. Inicie o servidor de desenvolvimento:
 
@@ -85,3 +89,30 @@ Repositório de uma loja de guitarras desenvolvida com Next.js. Esta aplicação
 
 
 ```
+
+## Prints
+
+1. Home
+   <br />
+   <img src="./git-images/home.png" alt="Home page print" height="350"/>
+   <br />
+
+2. Product Detail
+   <br />
+   <img src="./git-images/product-detail.png" alt="Home page print" height="350"/>
+   <br />
+
+3. Checkout Form
+   <br />
+   <img src="./git-images/checkout-form.png" alt="Home page print" height="350"/>
+   <br />
+
+4. Checkout Success
+   <br />
+   <img src="git-images/checkout-success.png" alt="Home page print" height="350"/>
+   <br/>
+
+5. Success Page
+   <br />
+   <img src="./git-images/success-page.png" alt="Home page print" height="350"/>
+   <br/>
