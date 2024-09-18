@@ -94,12 +94,12 @@ Repositório de uma loja de guitarras desenvolvida com Next.js. Esta aplicação
 
 1. Home
    <br />
-   <img src="./git-images/home.png" alt="Home page print" height="350"/>
+   <img src="./git-images/home2.png" alt="Home page print" height="350"/>
    <br />
 
 2. Product Detail
    <br />
-   <img src="./git-images/product-detail.png" alt="Home page print" height="350"/>
+   <img src="./git-images/product-detail2.png" alt="Home page print" height="350"/>
    <br />
 
 3. Checkout Form
@@ -114,5 +114,5 @@ Repositório de uma loja de guitarras desenvolvida com Next.js. Esta aplicação
 
 5. Success Page
    <br />
-   <img src="./git-images/success-page.png" alt="Home page print" height="350"/>
+   <img src="./git-images/success-page2.png" alt="Home page print" height="350"/>
    <br/>
