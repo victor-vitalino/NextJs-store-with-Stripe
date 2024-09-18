@@ -11,7 +11,7 @@ export const HomeContainer = styled("main", {
 
 export const ProductItem = styled("span", {
   display: "flex",
-  background: "linear-gradient(180deg,#1ea483 0%, #7465d4 100%)",
+  background: "linear-gradient(180deg,#097179 0%, #000 100%)",
   borderRadius: 8,
   // padding: "0.25rem",
   cursor: "pointer",
