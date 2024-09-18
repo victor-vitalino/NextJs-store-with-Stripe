@@ -33,8 +33,8 @@ Repositório de uma loja de guitarras desenvolvida com Next.js. Esta aplicação
 1. Clone o repositório:
 
    ```bash
-      git clone https://github.com/seu-usuario/seu-repositorio.git
-      cd seu-repositorio
+      git clone https://github.com/victor-vitalino/NextJs-store-with-Stripe.git
+      cd NextJs-store-with-Stripe
 
    ```
 
